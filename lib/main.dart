@@ -26,13 +26,7 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: animation.value,
-        width: animation.value,
-        child: FlutterLogo(),
-      ),
-    );
+    return AnimatedLogo(animation);
   }
 
   @override
@@ -49,8 +43,12 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin{
       end: 300
     ).animate(animationController);
 
-    animation.addListener(() {
-      setState(() {});
+    animation.addStatusListener((status) {
+      if(status == AnimationStatus.completed) {
+        animationController.reverse();
+      } else if(status == AnimationStatus.dismissed) {
+        animationController.forward();
+      }
     });
 
     animationController.forward();
@@ -61,6 +59,25 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin{
     // TODO: implement dispose
     animationController.dispose();
     super.dispose();
+  }
+}
+
+
+class AnimatedLogo extends AnimatedWidget {
+  AnimatedLogo(Animation<double> animation) : super(listenable: animation);
+
+  @override
+  Widget build(BuildContext context) {
+    final Animation<double> animation = listenable;
+
+    // TODO: implement build
+    return Center(
+      child: Container(
+        height: animation.value,
+        width: animation.value,
+        child: FlutterLogo(),
+      ),
+    );
   }
 }
 
