@@ -23,10 +23,22 @@ class LogoApp extends StatefulWidget {
 class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin{
   AnimationController animationController;
   Animation<double> animation;
+  Animation<double> animation2;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedLogo(animation);
+    return Column(
+      children: <Widget>[
+        GrowTransition(
+          child: LogoWidget(),
+          animation: animation,
+        ),
+        GrowTransition(
+          child: LogoWidget(),
+          animation: animation2,
+        )
+      ],
+    );
   }
 
   @override
@@ -43,7 +55,20 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin{
       end: 300
     ).animate(animationController);
 
+    animation2 = Tween<double>(
+        begin: 0,
+        end: 150
+    ).animate(animationController);
+
     animation.addStatusListener((status) {
+      if(status == AnimationStatus.completed) {
+        animationController.reverse();
+      } else if(status == AnimationStatus.dismissed) {
+        animationController.forward();
+      }
+    });
+
+    animation2.addStatusListener((status) {
       if(status == AnimationStatus.completed) {
         animationController.reverse();
       } else if(status == AnimationStatus.dismissed) {
@@ -62,22 +87,33 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin{
   }
 }
 
+class LogoWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FlutterLogo();
+  }
+}
 
-class AnimatedLogo extends AnimatedWidget {
-  AnimatedLogo(Animation<double> animation) : super(listenable: animation);
+class GrowTransition extends StatelessWidget {
+  final Widget child;
+  final Animation<double> animation;
+
+  GrowTransition({this.child, this.animation});
 
   @override
   Widget build(BuildContext context) {
-    final Animation<double> animation = listenable;
-
-    // TODO: implement build
     return Center(
-      child: Container(
-        height: animation.value,
-        width: animation.value,
-        child: FlutterLogo(),
+      child: AnimatedBuilder(
+        animation: animation,
+        builder: (context, child) {
+          return Container(
+            height: animation.value,
+            width: animation.value,
+            child: child,
+          );
+        },
+        child: child,
       ),
     );
   }
 }
-
