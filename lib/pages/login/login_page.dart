@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_animations/components/form_component.dart';
+import 'package:flutter_app_animations/components/signUpBtn_component.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -35,7 +36,8 @@ class _LoginPageState extends State<LoginPage> {
                         fit: BoxFit.contain
                       ),
                     ),
-                    FormComponent()
+                    FormComponent(),
+                    SignUpBtnComponent()
                   ],
                 )
               ],

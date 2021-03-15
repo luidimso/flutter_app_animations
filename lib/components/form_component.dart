@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_animations/components/input_component.dart';
 
 class FormComponent extends StatelessWidget {
   @override
@@ -9,7 +10,18 @@ class FormComponent extends StatelessWidget {
       ),
       child: Form(
         child: Column(
-          children: <Widget>[],
+          children: <Widget>[
+            InputComponent(
+              hint: "Username",
+              password: false,
+              icon: Icons.person_outline,
+            ),
+            InputComponent(
+              hint: "Password",
+              password: true,
+              icon: Icons.lock_outline
+            )
+          ],
         ),
       ),
     );
