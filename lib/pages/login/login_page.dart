@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_animations/components/btnAnimation_component.dart';
 import 'package:flutter_app_animations/components/form_component.dart';
 import 'package:flutter_app_animations/components/signUpBtn_component.dart';
 
@@ -7,7 +8,26 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
+  AnimationController _animationController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2)
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             Stack(
+              alignment: Alignment.bottomCenter,
               children: <Widget>[
                 Column(
                   children: <Widget>[
@@ -39,6 +60,9 @@ class _LoginPageState extends State<LoginPage> {
                     FormComponent(),
                     SignUpBtnComponent()
                   ],
+                ),
+                BtnAnimationComponent(
+                  animationController: _animationController.view,
                 )
               ],
             )
