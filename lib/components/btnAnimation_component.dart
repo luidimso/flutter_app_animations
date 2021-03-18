@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class BtnAnimationComponent extends StatelessWidget {
   final AnimationController animationController;
   final Animation<double> buttonAnimation;
+  final Animation<double> buttonZoom;
 
   BtnAnimationComponent({this.animationController}) : buttonAnimation = Tween(
     begin: 320.0,
@@ -10,6 +11,15 @@ class BtnAnimationComponent extends StatelessWidget {
   ).animate(CurvedAnimation(
     parent: animationController,
     curve: Interval(0.0, 0.15)
+  )),
+  buttonZoom = Tween(
+    begin: 60.0,
+    end: 1000.0
+  ).animate(CurvedAnimation(
+    parent: animationController,
+    curve: Interval(0.5, 1.0,
+      curve: Curves.bounceOut
+    )
   ));
 
   @override
@@ -27,15 +37,24 @@ class BtnAnimationComponent extends StatelessWidget {
         onTap: () {
           animationController.forward();
         },
-        child: Container(
+        child: buttonZoom.value <= 60 ?
+        Container(
           width: buttonAnimation.value,
           height: 60,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Color.fromRGBO(247, 67, 106, 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(30))
+              color: Color.fromRGBO(247, 67, 106, 1.0),
+              borderRadius: BorderRadius.all(Radius.circular(30))
           ),
           child: _buildInsideBtn(context),
+        ) :
+        Container(
+          width: buttonZoom.value,
+          height: buttonZoom.value,
+          decoration: BoxDecoration(
+              color: Color.fromRGBO(247, 67, 106, 1.0),
+              shape: buttonZoom.value < 500 ? BoxShape.circle : BoxShape.rectangle
+          ),
         ),
       ),
     );
