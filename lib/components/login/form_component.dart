@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_animations/components/input_component.dart';
+import 'package:flutter_app_animations/components/login/input_component.dart';
 
 class FormComponent extends StatelessWidget {
   @override
