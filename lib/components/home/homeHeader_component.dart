@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_animations/components/home/category_component.dart';
 
 class HomeHeader extends StatelessWidget {
   final Animation<double> containerGrow;
@@ -60,7 +61,8 @@ class HomeHeader extends StatelessWidget {
                   color: Color.fromRGBO(80, 210, 194, 1)
                 ),
               ),
-            )
+            ),
+            CategoryComponent()
           ],
         ),
       ),
