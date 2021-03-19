@@ -16,6 +16,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         vsync: this,
         duration: Duration(seconds: 2)
     );
+
+    _controller.forward();
   }
 
   @override
