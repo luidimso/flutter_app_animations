@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_animations/components/login/btnAnimation_component.dart';
 import 'package:flutter_app_animations/components/login/form_component.dart';
 import 'package:flutter_app_animations/components/login/signUpBtn_component.dart';
+import 'package:flutter_app_animations/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -19,6 +20,14 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       vsync: this,
       duration: Duration(seconds: 2)
     );
+
+    _animationController.addStatusListener((status) {
+      if(status == AnimationStatus.completed) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => HomePage()
+        ));
+      }
+    });
   }
 
   @override

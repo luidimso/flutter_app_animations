@@ -37,23 +37,26 @@ class BtnAnimationComponent extends StatelessWidget {
         onTap: () {
           animationController.forward();
         },
-        child: buttonZoom.value <= 60 ?
-        Container(
-          width: buttonAnimation.value,
-          height: 60,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              color: Color.fromRGBO(247, 67, 106, 1.0),
-              borderRadius: BorderRadius.all(Radius.circular(30))
-          ),
-          child: _buildInsideBtn(context),
-        ) :
-        Container(
-          width: buttonZoom.value,
-          height: buttonZoom.value,
-          decoration: BoxDecoration(
-              color: Color.fromRGBO(247, 67, 106, 1.0),
-              shape: buttonZoom.value < 500 ? BoxShape.circle : BoxShape.rectangle
+        child: Hero(
+          tag: "fade",
+          child: buttonZoom.value <= 60 ?
+          Container(
+            width: buttonAnimation.value,
+            height: 60,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(247, 67, 106, 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(30))
+            ),
+            child: _buildInsideBtn(context),
+          ) :
+          Container(
+            width: buttonZoom.value,
+            height: buttonZoom.value,
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(247, 67, 106, 1.0),
+                shape: buttonZoom.value < 500 ? BoxShape.circle : BoxShape.rectangle
+            ),
           ),
         ),
       ),
